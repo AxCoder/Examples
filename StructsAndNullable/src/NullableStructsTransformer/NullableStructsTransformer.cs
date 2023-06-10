@@ -11,6 +11,7 @@ public class NullableStructsTransformer
             ? default
             : transformation(source);
 
+    
     public static TResult? Transform<TSource, TResult>(
         TSource? source,
         Func<TSource, TResult> transformation)
@@ -31,15 +32,8 @@ public class NullableStructsTransformer
         Func<TSource, TResult> transformation)
         where TSource : struct
         where TResult : struct
-    {
-        if (source is null)
-        {
-            return default;
-        }
-        else
-        {
-            return transformation(source.Value);
-        }        
-    }
+        => source is null
+            ? default(TResult?)
+            : transformation(source.Value);        
 }
 
